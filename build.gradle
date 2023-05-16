@@ -1,0 +1,32 @@
+plugins {
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+mainClassName = 'example.HelloFX'
+
+group 'example'
+version '0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+javafx {
+    version = '17'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+shadowJar {
+    archiveBaseName.set('HelloFX')
+    archiveVersion.set('0.1-SNAPSHOT')
+    archiveClassifier.set('jar-with-dependencies')
+    manifest {
+        attributes 'Main-Class': 'example.HelloFX'
+    }
+}
+tasks.build.dependsOn tasks.shadowJar
